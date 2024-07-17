@@ -19,18 +19,22 @@ def mostrar_menu():
     ruta_base = os.path.dirname(__file__)
 
     opciones = {
-        '1': 'Unidad 1/Ejemplos de mundo real/Cuenta_bancaria.py',
-        '2': 'Unidad 1/Semana 02/Tecnica de Abstraccion/abstraccion.py',
-        '3': 'Unidad 1/Semana 02/Tecnica de Encapsulacion/encapsulacion.py',
-        '4': 'Unidad 1/Semana 02/Tecnica de Herencia/herencia.py',
-        '5': 'Unidad 1/Semana 02/Tecnica de Polimorfismo/polimorfismo.py',
-        '6': 'Unidad 1/semana 03/programacion Poo.py',
-        '7': 'Unidad 1/semana 03/programacion tradicional.py',
+        '1': 'UNIDAD 1/Semana 02/Tecnica de Abstraccion/abstraccion.py',
+        '2': 'UNIDAD 1/Semana 02/Tecnica de Encapsulacion/encapsulacion.py',
+        '3': 'UNIDAD 1/Semana 02/Tecnica de Herencia/herencia.py',
+        '4': 'UNIDAD 1/Semana 02/Tecnica de Polimorfismo/polimorfismo.py',
+        '5': 'UNIDAD 1/semana 03/programacion Poo.py',
+        '6': 'UNIDAD 1/semana 03/programacion tradicional.py',
+        '7': 'UNIDAD 1/Semana 04/Ejemplos de mundo real/Cuenta_bancaria.py',
+        '8': 'UNIDAD 2/Semana 05/tipo de datos, identificadores.py',
+        '9': 'UNIDAD 2/Semana 06/tipo de datos, identificadores.py',
+        '10': 'UNIDAD 2/Semana 07/Constructores y Destructores 7.py',
+        '11': 'UNIDAD 2/Semana 07/Constructores y Destructores 7.py',
         # Agrega aquí el resto de las rutas de los scripts
     }
 
     while True:
-        print("\nMenu Principal - Dashboard")
+        print("\n****Menu Principal - Dashboard****")
         # Imprime las opciones del menú
         for key in opciones:
             print(f"{key} - {opciones[key]}")
