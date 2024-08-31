@@ -40,7 +40,7 @@ class Inventario:
 
     def cargar_inventario(self):
         try:
-            with open('Inventario.txt', 'r') as file:
+            with open('Inventario robusto.txt', 'r') as file:
                 for line in file:
                     id, nombre, cantidad, precio = line.strip().split(',')
                     self.productos[id] = Producto(id, nombre, int(cantidad), float(precio))
@@ -52,7 +52,7 @@ class Inventario:
 
     def guardar_inventario(self):
         try:
-            with open('Inventario.txt', 'w') as file:
+            with open('Inventario robusto.txt', 'w') as file:
                 for producto in self.productos.values():
                     file.write(f'{producto.get_id()},{producto.get_nombre()},{producto.get_cantidad()},{producto.get_precio()}\n')
             print("Inventario guardado correctamente.")
