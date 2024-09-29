@@ -1,89 +1,57 @@
-# tkinter
-
-
-
-
-
-
 import tkinter as tk
-from tkinter import ttk, messagebox
-from tkcalendar import DateEntry
-from datetime import date
+from tkinter import messagebox
 
-# crear la v p
-root = tk. Tk()
-root.title("Agenda Personal")
-root.geometry("800x500")
+class TaskManager:
+    def __init__(self, master):
+        self.master = master
+        self.master.title("Gestor de Tareas")
 
+        # Campo de entrada para nuevas tareas
+        self.task_entry = tk.Entry(master, width=40)
+        self.task_entry.pack(pady=10)
+        self.task_entry.bind("<Return>", self.add_task)  # Permitir añadir tarea al presionar Enter
 
-# crear contenedor
-frame = ttk.Frame(root, padding="10")
-frame.grid(row=0, column=0, columnspan=2,sticky=tk.NSEW)
+        # Botón para añadir tareas
+        self.add_button = tk.Button(master, text="Añadir Tarea", command=self.add_task)
+        self.add_button.pack(pady=5)
 
-# Crear funciones
-# Agregar el evento
+        # Botón para marcar como completada
+        self.complete_button = tk.Button(master, text="Marcar como Completada", command=self.complete_task)
+        self.complete_button.pack(pady=5)
 
-def agregar_evento():
-    fecha = data_picker.get()
-    hora = hora_entry.get()
-    descripcion = descripcion_entry.get()
+        # Botón para eliminar tareas
+        self.delete_button = tk.Button(master, text="Eliminar Tarea", command=self.delete_task)
+        self.delete_button.pack(pady=5)
 
-    tree.insert("", "end", values=(fecha, hora, descripcion))
+        # Lista de tareas
+        self.task_listbox = tk.Listbox(master, selectmode=tk.SINGLE, width=50, height=10)
+        self.task_listbox.pack(pady=10)
 
-# Funcion eliminar evento
-def eliminar_evento():
-    selected_item = tree.selection()
-    if selected_item:
-        confirmacion=messagebox.askyesno("Esta segura de eliminar", "Esta seguro")
-    if confirmacion:
-        tree.delete(selected_item)
-    else:
-        messagebox.showwarning("Seleccione", "Seleccione un item")
+    def add_task(self, event=None):
+        task = self.task_entry.get()
+        if task:
+            self.task_listbox.insert(tk.END, task)
+            self.task_entry.delete(0, tk.END)
+        else:
+            messagebox.showwarning("Advertencia", "Por favor, introduce una tarea.")
 
+    def complete_task(self):
+        try:
+            selected_index = self.task_listbox.curselection()[0]
+            task = self.task_listbox.get(selected_index)
+            self.task_listbox.delete(selected_index)
+            self.task_listbox.insert(tk.END, f"{task} (completada)")
+        except IndexError:
+            messagebox.showwarning("Advertencia", "Por favor, selecciona una tarea.")
 
-# Crear titulo
-titulo = ttk.Label(frame, text="Agenda Personal")
-titulo.grid(row=0, column=0, columnspan=2, sticky=tk.NSEW)
+    def delete_task(self):
+        try:
+            selected_index = self.task_listbox.curselection()[0]
+            self.task_listbox.delete(selected_index)
+        except IndexError:
+            messagebox.showwarning("Advertencia", "Por favor, selecciona una tarea.")
 
-# Crear etiqueta y l campo de fecha
-data_picker = DateEntry(frame, date_pattern="y-mm-dd", width="12")
-data_picker.set_date(date.today())
-data_picker.grid(row=1, column=0, pady=5)
-
-# Campo para hora
-hora_label = ttk.Label(frame, text="Ingrese la hora: ")
-hora_label.grid(row=2,column=0,pady=5)
-
-hora_entry = ttk.Entry(frame)
-hora_entry.grid(row=2,column=1)
-# Realizar la descripcion
-descripcion_label = ttk.Label(frame, text="Descripcion")
-descripcion_label.grid(row=3,column=0,pady=5)
-
-descripcion_entry = ttk.Entry(frame)
-descripcion_entry.grid(row=3,column=1)
-
-# Creacion de bonton para las accion de "Agregar"
-agregar_boton = ttk.Button(frame, text="Agregar", command=agregar_evento)
-agregar_boton.grid(row=4,column=0,pady=5)
-
-
-# Eliminar boton
-eliminar_boton = ttk.Button(frame, text="Eliminar", command=eliminar_evento)
-eliminar_boton.grid(row=4, column=1, pady=5)
-
-
-# Crear Treeview para mostrar la lista de eventos
-tree = ttk.Treeview(frame, columns=("fecha", "hora", "descriccion"), show="headings")
-tree.grid(row=5, column=0, columnspan=2, sticky="nsew")
-
-# Botón para salir de la aplicación
-salir_boton = ttk.Button(frame, text="Salir", command=root.quit)
-salir_boton.grid(row=6, column=1, pady=5)
-
-tree.heading("fecha", text="Fecha")
-tree.heading("hora", text="hora")
-tree.heading("descriccion", text="descriccion")
-
-root.mainloop()
-
+if __name__ == "__main__":
+    root = tk.Tk()
+    task_manager = TaskManager(root)
+    root.mainloop()
